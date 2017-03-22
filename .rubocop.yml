@@ -1,0 +1,47 @@
+# This is the configuration used to check the rubocop source code.
+
+require: rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.4
+
+  Exclude:
+    - 'bin/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'spec/dummy/**/*'
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 100
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 25
+
+RSpec/MultipleExpectations:
+  Enabled: false
+  Max: 1
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+

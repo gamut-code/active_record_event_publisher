@@ -2,6 +2,7 @@ require 'aws-sdk'
 require "active_record_event_publisher/engine"
 require "active_record_event_publisher/event_builder"
 require "active_record_event_publisher/hooks"
+require 'sucker_punch'
 require 'wisper'
 require 'wisper/active_record'
 

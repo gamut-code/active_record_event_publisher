@@ -15,8 +15,6 @@ gem 'active_record_event_publisher', github: 'gamut-code/active_record_event_pub
 This gem uses environment variables for configuration. Be sure the following `ENV` are set in your app:
 
 ```
-AWS_ACCESS_KEY
-AWS_SECRET_KEY
 ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE
 ACTIVE_RECORD_EVENT_PUBLISHER_LOGGER_ENABLED (optional)
 ```

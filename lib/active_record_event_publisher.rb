@@ -8,7 +8,7 @@ require 'wisper/active_record'
 
 module ActiveRecordEventPublisher
   def self.setup
-    if ENV['AWS_ACCESS_KEY'] && ENV['AWS_SECRET_KEY'] && ENV['ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE']
+    if ENV['ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE']
       Wisper::ActiveRecord.extend_all
       ApplicationRecord.subscribe(Hooks.new)
       Rails.logger.info('ActiveRecordEventPublisher enabled.')

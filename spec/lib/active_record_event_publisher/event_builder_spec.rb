@@ -2,10 +2,7 @@ require 'rails_helper'
 
 describe ActiveRecordEventPublisher::EventBuilder do
   before do
-    stub_const('ENV',
-               'AWS_ACCESS_KEY' => 'NOT_REAL',
-               'AWS_SECRET_KEY' => 'NOT_REAL',
-               'ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE' => 'NOT_REAL')
+    stub_const('ENV', 'ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE' => 'NOT_REAL')
   end
 
   describe '#publish' do
@@ -23,8 +20,6 @@ describe ActiveRecordEventPublisher::EventBuilder do
     it 'writes a log line when the env variable is enabled' do
       stub_const('ENV',
                  'ACTIVE_RECORD_EVENT_PUBLISHER_LOGGER_ENABLED' => true,
-                 'AWS_ACCESS_KEY' => 'NOT_REAL',
-                 'AWS_SECRET_KEY' => 'NOT_REAL',
                  'ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE' => 'NOT_REAL')
 
       Timecop.freeze

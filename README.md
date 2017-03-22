@@ -3,9 +3,6 @@ ActiveRecordEventPublisher
 
 Publish all create, update, and destroy events to an SQS queue.
 
-## Usage
-How to use my plugin.
-
 ## Installation
 Add this line to your application's Gemfile:
 

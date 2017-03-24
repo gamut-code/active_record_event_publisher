@@ -7,7 +7,7 @@ Publish all create, update, and destroy events to an SQS queue.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'active_record_event_publisher', github: 'gamut-code/active_record_event_publisher'
+gem 'active_record_event_publisher', :git => 'https://github.com/gamut-code/active_record_event_publisher'
 ```
 
 ## Setup

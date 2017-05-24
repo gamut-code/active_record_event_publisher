@@ -11,21 +11,19 @@ gem 'active_record_event_publisher', :git => 'https://github.com/gamut-code/acti
 ```
 
 ## Setup
-
-This gem uses environment variables for configuration. Be sure the following `ENV` are set in your app:
-
-```
-AWS_REGION=us-east-1
-ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE
-ACTIVE_RECORD_EVENT_PUBLISHER_LOGGER_ENABLED=true (optional)
-```
-
-With the environment variables set, simply add the initializer below to your app:
+Add this configuration initializer to your app
 
 **config/initializers/active_record_event_publisher.rb**
 
 ```ruby
-ActiveRecordEventPublisher.setup
+ActiveRecordEventPublisher.configure do |config|
+  config.aws_region = 'us-east-1' # required field
+  config.aws_secret_access_key = 'secret_key' # required field
+  config.aws_access_key_id = 'key_id' # required field
+  config.queue_url = 'http://example.com'
+  config.enabled = false # only enable in production environment
+  config.log = true # default is false
+end
 ```
 
 Restart your app, and all events will be published to SQS.

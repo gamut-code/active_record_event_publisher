@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_record_event_publisher (0.1.0)
+    active_record_event_publisher (0.2.0)
       aws-sdk
       rails (~> 5.0)
       sucker_punch (~> 2.0)
@@ -178,4 +178,4 @@ DEPENDENCIES
   timecop
 
 BUNDLED WITH
-   1.13.6
+   1.14.5

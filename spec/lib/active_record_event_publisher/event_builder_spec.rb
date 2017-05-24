@@ -1,8 +1,28 @@
 require 'rails_helper'
 
 describe ActiveRecordEventPublisher::EventBuilder do
+  let(:queue_url) { 'http://example.com' }
+  let(:log) { true }
+  let(:aws_region) { 'us-east-1'}
+
+  def event_builder(action, user)
+    described_class.new(
+      action,
+      user
+    )
+  end
+
   before do
-    stub_const('ENV', 'ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE' => 'NOT_REAL')
+    allow_any_instance_of(Aws::SQS::Queue).to receive(:send_message)
+
+    ActiveRecordEventPublisher.configure do |config|
+      config.aws_region = 'us-east-1'
+      config.aws_secret_access_key = 'secret_key'
+      config.aws_access_key_id = 'key_id'
+      config.queue_url = 'http://example.com'
+      config.enabled = true
+      config.log = true
+    end
   end
 
   describe '#publish' do
@@ -10,7 +30,7 @@ describe ActiveRecordEventPublisher::EventBuilder do
       Timecop.freeze
       user = User.create(:name => 'foo')
 
-      event = described_class.new('create', user)
+      event = event_builder('create', user)
       expect_any_instance_of(Aws::SQS::Queue).to receive(:send_message)
         .with(:message_body => event.event_data.to_json)
       event.publish
@@ -18,14 +38,10 @@ describe ActiveRecordEventPublisher::EventBuilder do
     end
 
     it 'writes a log line when the env variable is enabled' do
-      stub_const('ENV',
-                 'ACTIVE_RECORD_EVENT_PUBLISHER_LOGGER_ENABLED' => true,
-                 'ACTIVE_RECORD_EVENT_PUBLISHER_QUEUE' => 'NOT_REAL')
-
       Timecop.freeze
       user = User.create(:name => 'foo')
 
-      event     = described_class.new('create', user)
+      event     = event_builder('create', user)
       json_data = event.event_data.to_json
 
       expect_any_instance_of(Aws::SQS::Queue).to receive(:send_message)
@@ -43,7 +59,7 @@ describe ActiveRecordEventPublisher::EventBuilder do
     it 'returns the correct reponse for a create event' do
       user = User.create(:name => 'foo')
 
-      event = described_class.new('create', user)
+      event = event_builder('create', user)
       data = event.event_data
 
       expect(data[:action]).to eq('create')
@@ -54,12 +70,12 @@ describe ActiveRecordEventPublisher::EventBuilder do
       expect(data[:changes]['name']).to eq([nil, 'foo'])
     end
 
-    it 'returns the correct reponse for a update event' do
+    it 'returns the correct reponse for a update event', t:true do
       user = User.create(:name => 'foo')
       user.reload
       user.update_attributes(:name => 'bar')
 
-      event = described_class.new('update', user)
+      event = event_builder('update', user)
       data = event.event_data
 
       expect(data[:action]).to eq('update')
@@ -75,7 +91,7 @@ describe ActiveRecordEventPublisher::EventBuilder do
       user.reload
       user.destroy
 
-      event = described_class.new('destroy', user)
+      event = event_builder('destroy', user)
       data = event.event_data
 
       expect(data[:action]).to eq('destroy')

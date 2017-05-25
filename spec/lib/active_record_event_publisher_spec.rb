@@ -3,9 +3,6 @@ require 'rails_helper'
 describe ActiveRecordEventPublisher do
   def configure(enabled, queue_url='http://example.com')
     described_class.configure do |config|
-      config.aws_region = 'us-east-1'
-      config.aws_secret_access_key = 'secret_key'
-      config.aws_access_key_id = 'key_id'
       config.queue_url = queue_url
       config.enabled = enabled
       config.log = true

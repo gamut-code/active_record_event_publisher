@@ -6,7 +6,6 @@ module ActiveRecordEventPublisher
     end
 
     def publish
-      add_aws_configuration
       queue = Aws::SQS::Queue.new(configuration.queue_url)
       data = event_data.to_json
       queue.send_message(:message_body => data)
@@ -29,16 +28,6 @@ module ActiveRecordEventPublisher
 
     def configuration
       ActiveRecordEventPublisher.configuration
-    end
-
-    def add_aws_configuration
-      Aws.config.update(
-        region: configuration.aws_region,
-        credentials: Aws::Credentials.new(
-          configuration.aws_access_key_id,
-          configuration.aws_secret_access_key
-        )
-      )
     end
   end
 end

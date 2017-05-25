@@ -3,7 +3,6 @@ require 'rails_helper'
 describe ActiveRecordEventPublisher::EventBuilder do
   let(:queue_url) { 'http://example.com' }
   let(:log) { true }
-  let(:aws_region) { 'us-east-1'}
 
   def event_builder(action, user)
     described_class.new(
@@ -16,9 +15,6 @@ describe ActiveRecordEventPublisher::EventBuilder do
     allow_any_instance_of(Aws::SQS::Queue).to receive(:send_message)
 
     ActiveRecordEventPublisher.configure do |config|
-      config.aws_region = 'us-east-1'
-      config.aws_secret_access_key = 'secret_key'
-      config.aws_access_key_id = 'key_id'
       config.queue_url = 'http://example.com'
       config.enabled = true
       config.log = true

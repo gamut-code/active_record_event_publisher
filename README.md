@@ -17,9 +17,6 @@ Add this configuration initializer to your app
 
 ```ruby
 ActiveRecordEventPublisher.configure do |config|
-  config.aws_region = 'us-east-1' # required field
-  config.aws_secret_access_key = 'secret_key' # required field
-  config.aws_access_key_id = 'key_id' # required field
   config.queue_url = 'http://example.com'
   config.enabled = false # only enable in production environment
   config.log = true # default is false

@@ -1,4 +1,4 @@
-require 'aws-sdk'
+require 'aws-sdk-sqs'
 require 'active_record_event_publisher/configuration'
 require 'active_record_event_publisher/engine'
 require 'active_record_event_publisher/event_builder'

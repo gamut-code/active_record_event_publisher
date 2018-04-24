@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency 'rails', '~> 5.0'
+  s.add_dependency 'rails', '~> 5.1'
   s.add_dependency 'wisper-activerecord', '~> 0.3'
   s.add_dependency 'sucker_punch', '~> 2.0'
   s.add_dependency 'aws-sdk-sqs'
@@ -30,6 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'pry'
-  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop', '~> 0.49.0'
   s.add_development_dependency 'rubocop-rspec'
 end
